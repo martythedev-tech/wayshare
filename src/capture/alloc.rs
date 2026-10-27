@@ -291,7 +291,10 @@ impl Allocator {
     /// Single-plane 32 bpp LINEAR buffer backed by a sealed memfd.
     fn allocate_udmabuf(&mut self, width: u32, height: u32) -> Result<Allocation> {
         if self.udmabuf.is_none() {
-            let file = OpenOptions::new().read(true).write(true).open("/dev/udmabuf");
+            let file = OpenOptions::new()
+                .read(true)
+                .write(true)
+                .open("/dev/udmabuf");
             if let Err(e) = &file
                 && e.kind() == std::io::ErrorKind::NotFound
             {
